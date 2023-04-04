@@ -115,9 +115,6 @@ input[type=reset]:hover {
     }
 }  
 
-li{
-    color:red;
-}
 .left-link{
     margin-left: auto;
     float: right;
@@ -127,4 +124,7 @@ li{
 }
 a{
     text-decoration: none;
+}
+#formerror{
+    color:red;
 }

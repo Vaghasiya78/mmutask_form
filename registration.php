@@ -11,22 +11,25 @@ include "./registration_post.php";
     <meta charset="UTF-8">
     <title>Responsive Registaration Form</title>
     <link rel="stylesheet" href="./css/form.css">
+    <script src="./js/form_validation.js" type="text/javascript"></script>
 </head>
 
 <body>
+    <ul><span id="formerror" class="formerror">
+    </span></ul>
     <div class="container">
         <div class="left-link">
             <a href="./index.php">Go To Dashboard</a>
         </div>
         <h1>Employee Form</h1>
         <!-- multipart/form-data when we use file that time we use this enctype attribute -->
-        <form action="" role="form" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form action="" role="form" name="empForm" method="post" enctype="multipart/form-data" autocomplete="off" onsubmit="return form_validation()">
             <div class="row">
                 <div class="col-10">
                     <label class="contentlabel" for="fname">Employee Name<label style="color:red"> *</label>:</label>
                 </div>
                 <div class="col-90">
-                    <input type="text" id="name" name="ename" placeholder="Enter your first name" value="<?php echo isset($form_data['ename']) ? $form_data['ename'] : ''; ?>">
+                    <input type="text" id="ename" name="ename" placeholder="Enter your first name" value="<?php echo isset($form_data['ename']) ? $form_data['ename'] : ''; ?>">
                 </div>
             </div>
             <div class="row">
@@ -61,7 +64,7 @@ include "./registration_post.php";
             </div>
             <div class="row">
                 <div class="col-10">
-                    <label class="contentlabel" for="gender" required>Language<label style="color:red"> *</label>:</label>
+                    <label class="contentlabel" for="english" required>Language<label style="color:red"> *</label>:</label>
                 </div>
                 <div class="col-90">
                     <input type="radio" id="english" name="lang" value="English" <?= isset($form_data['lang']) && $form_data['lang'] == 'English' ? 'checked' : ''; ?> />
@@ -75,7 +78,7 @@ include "./registration_post.php";
                     <label class="contentlabel" for="profile">Profile Picture<label style="color:red"> *</label>:</label>
                 </div>
                 <div class="col-90">
-                    <?php if (isset($_GET['edit_employee'])) { ?>
+                    <?php if (isset($_GET['action'])) { ?>
                         <img width="50" src="./profile/<?= $form_data['profilepic']; ?>" alt="No Image">
                     <?php } ?>
                     <input type="file" name="uploadfile" accept="image/png, image/gif, image/jpeg" />
@@ -114,11 +117,12 @@ include "./registration_post.php";
                         <input type="checkbox" class="hobby" id="<?= $hobby_value ?>" name="hobby[]" value="<?= $hobby_value ?>" <?= isset($form_data['hobby']) && is_array($form_data['hobby']) ? (in_array($hobby_value, $form_data['hobby']) ? 'checked' : '') : ''; ?>>
                         <label for="<?= $hobby_value ?>"><?= $hobby_value ?></label><br />
                     <?php } ?>
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-10">
-                    <input type="hidden" name="eid" value="<?= isset($_GET['edit_employee']) ? $_GET['edit_employee'] : ''; ?>">
+                    <input type="hidden" name="eid" value="<?= isset($_GET['eid']) ? $_GET['eid'] : ''; ?>">
                     <input type='submit' value='Submit' name='submit'>
                 </div>
             </div>

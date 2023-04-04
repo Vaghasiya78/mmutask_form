@@ -5,12 +5,16 @@
 
     // REGISTER SUCCESSFULLY POP-UP MENU.
     if (isset($_GET['action']) && $_GET['action'] == 'register') {
-        echo '<script>alert("Successfully Registerd New Data")</script>';
+        echo '<script>alert("Successfully Registerd New Data");
+               window.location = "./index.php";
+               </script>';
     }
 
     // EDIT SUCCESSFULLY POP-UP MENU.
     if (isset($_GET['action']) && $_GET['action'] == 'edited') {
-        echo '<script>alert("Successfully Edited data")</script>';
+        echo '<script>alert("Successfully Edited data");
+              window.location = "./index.php";
+              </script>';
     }
 
     // ARRAY OF COLUMN NAME AND SELECT COLUMN WHICH IS SELECTED OR SORTING ORDER.
@@ -68,11 +72,11 @@
 
      <!-- DELETE JAVASCRIPT QUERY -->
      <script language="JavaScript" type="text/javascript">
-         function delete_user(eid) {
-             if (confirm('Are You Sure to Delete this Record?')) {
-                 window.location.href = 'index.php?delete=' + eid;
-             }
+     function delete_user(eid) {
+         if (confirm('Are You Sure to Delete this Record?')) {
+             window.location.href = 'index.php?delete=' + eid;
          }
+     }
      </script>
  </head>
 
@@ -87,7 +91,8 @@
          <form action="" method="get">
              <!-- SEARCH BAR FOR GIVE DIFFRENT TYPES OF VALUE -->
              <div class="searchbar">
-                 <input type="text" placeholder="Search" name="search_data" value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : ''; ?>">
+                 <input type="text" placeholder="Search" name="search_data"
+                     value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : ''; ?>">
                  <input type="hidden" name="column" value="<?= isset($_GET['column']) ? $_GET['column'] : 'eid'; ?>">
                  <input type="hidden" name="order" value="<?= isset($_GET['order']) ? $_GET['order'] : 'desc'; ?>">
                  <input type="hidden" name="page" value="<?= isset($_GET['page']) ? $_GET['page']  = 1 : ''; ?>">
@@ -121,13 +126,13 @@
                         echo "<h1 class='text-center'>No Data Available</h1>";
                     } else {
                     ?>
-                     <div class="table-content">
+                 <div class="table-content">
 
-                         <form action="" method="get">
-                             <table>
-                                 <thead>
-                                     <tr>
-                                         <?php
+                     <form action="" method="get">
+                         <table>
+                             <thead>
+                                 <tr>
+                                     <?php
                                             //SORTING DATA FUNCTION
                                             function sort_data($column_name, $sort_order)
                                             {
@@ -135,22 +140,22 @@
                                             }
                                             ?>
 
-                                         <th>Profile</th>
-                                         <!-- Assending and Descending value with sorting and searching function -->
-                                         <th><a href="<?= sort_data('eid', $sort_order) ?>">Emp_Id</a></th>
-                                         <th><a href="<?= sort_data('ename', $sort_order) ?>">Emp_Name</a></th>
-                                         <th><a href="<?= sort_data('email', $sort_order) ?>">Email</a></th>
-                                         <th><a href="<?= sort_data('salary', $sort_order) ?>">Salary</a></th>
-                                         <th><a href="<?= sort_data('department', $sort_order) ?>">Department</a></th>
-                                         <th><a href="<?= sort_data('lang', $sort_order) ?>">Language</a></th>
-                                         <th><a href="<?= sort_data('joiningdate', $sort_order) ?>">Joining Date</a></th>
-                                         <th>Hobby</th>
-                                         <th>Edit</th>
-                                         <th>Delete</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                     <?php
+                                     <th>Profile</th>
+                                     <!-- Assending and Descending value with sorting and searching function -->
+                                     <th><a href="<?= sort_data('eid', $sort_order) ?>">Emp_Id</a></th>
+                                     <th><a href="<?= sort_data('ename', $sort_order) ?>">Emp_Name</a></th>
+                                     <th><a href="<?= sort_data('email', $sort_order) ?>">Email</a></th>
+                                     <th><a href="<?= sort_data('salary', $sort_order) ?>">Salary</a></th>
+                                     <th><a href="<?= sort_data('department', $sort_order) ?>">Department</a></th>
+                                     <th><a href="<?= sort_data('lang', $sort_order) ?>">Language</a></th>
+                                     <th><a href="<?= sort_data('joiningdate', $sort_order) ?>">Joining Date</a></th>
+                                     <th>Hobby</th>
+                                     <th>Edit</th>
+                                     <th>Delete</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 <?php
                                         // SELECT PAGE VALUES
                                         $pagi = ceil($record / $per_page);  //make proper integer number using ceil
                                         $select_query .= "LIMIT $page, $per_page";
@@ -160,51 +165,52 @@
                                         if ($query && (mysqli_num_rows($query) > 0)) {
                                             while ($row = mysqli_fetch_array($query)) {
                                         ?>
-                                             <tr>
-                                                 <td><img class='image' src='./profile/<?= $row['profilepic'] ?>' alt='Image'></td>
-                                                 <td><?= $row['eid'] ?></td>
-                                                 <td><?= $row['ename'] ?></td>
-                                                 <td><?= $row['email'] ?></td>
-                                                 <td><?= $row['salary'] ?></td>
-                                                 <td><?= $row['department'] ?></td>
-                                                 <td><?= $row['lang'] ?></td>
-                                                 <td><?= date("d-M-Y", strtotime($row['joiningdate'])) ?></td>
-                                                 <td><?= $row['hobby'] ?></td>
-                                                 <td><a href='./registration.php?edit_employee=<?= $row['eid'] ?>'>Edit</a></td>
-                                                 <td><a href='javascript: delete_user(<?= $row['eid'] ?>)'>Delete</a></td>
-                                             </tr>
-                                         <?php
-                                            }
-                                            ?>
-                                 </tbody>
+                                 <tr>
+                                     <td><img class='image' src='./profile/<?= $row['profilepic'] ?>' alt='Image'></td>
+                                     <td><?= $row['eid'] ?></td>
+                                     <td><?= $row['ename'] ?></td>
+                                     <td><?= $row['email'] ?></td>
+                                     <td><?= $row['salary'] ?></td>
+                                     <td><?= $row['department'] ?></td>
+                                     <td><?= $row['lang'] ?></td>
+                                     <td><?= date("d-M-Y", strtotime($row['joiningdate'])) ?></td>
+                                     <td><?= $row['hobby'] ?></td>
+                                     <td><a
+                                             href='./registration.php?action=edit_employee&eid=<?= $row['eid'] ?>'>Edit</a>
+                                     </td>
+                                     <td><a href='javascript: delete_user(<?= $row['eid'] ?>)'>Delete</a></td>
+                                 </tr>
+                                 <?php } ?>
+                             </tbody>
                              <?php
                                         } else {
                                             header("Location: index.php?column=" . (isset($_GET['column']) ? $_GET['column'] : 'eid') . "&order=" . (isset($_GET['order']) ? $_GET['order'] : 'desc') . "&search_data=" . (isset($_GET['search_data']) ? $_GET['search_data'] : '') . "&page=1");
                                         }
 
                                 ?>
-                             </table>
-                     </div>
+                         </table>
+                 </div>
 
-                     <!-- PAGE NUMBERS LINK -->
-                     <div class="pagging">
-                         <ul class="pager">
-                             <?php
+                 <!-- PAGE NUMBERS LINK -->
+                 <div class="pagging">
+                     <ul class="pager">
+                         <?php
                                 for ($i = 1; $i <= $pagi; $i++) {
 
                                     if ($current_page == $i) {
                                         echo " <li><a class='active_link' href='javascript:void(0)'>{$i}</a></li>";
                                     } else {
                                 ?>
-                                     <li>
-                                         <a href="index.php?column=<?= isset($_GET['column']) ? $_GET['column'] : 'eid'; ?>&order=<?= isset($_GET['order']) ? $_GET['order'] : 'desc'; ?>&search_data=<?= isset($_GET['search_data']) ? $_GET['search_data'] : ''; ?>&page=<?= $i; ?>"><?= $i; ?></a>
-                                     </li>
-                             <?php
+                         <li>
+                             <a
+                                 href="index.php?column=<?= isset($_GET['column']) ? $_GET['column'] : 'eid'; ?>&order=<?= isset($_GET['order']) ? $_GET['order'] : 'desc'; ?>&search_data=<?= isset($_GET['search_data']) ? $_GET['search_data'] : ''; ?>&page=<?= $i; ?>"><?= $i; ?></a>
+                         </li>
+                         <?php
                                     }
                                 }
                                 ?>
-                         </ul>
-                     </div>
+                     </ul>
+                 </div>
                  <?php } ?>
              </div>
          </div>

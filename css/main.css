@@ -51,6 +51,7 @@ header {
     color: white;
 }
 
+
 .menuicn {
     cursor: pointer;
 }
@@ -256,22 +257,19 @@ a {
     color: #5500cb;
 }
 
-.view {
-    height: 35px;
-    width: 90px;
-    border-radius: 8px;
-    background-color: #5500cb;
+.view a{
     color: white;
+    padding: 11px 20px;
+    border-radius: 8px;
+    background-color: #246b9b;
     font-size: 15px;
     border: none;
     cursor: pointer;
-    padding: 1%;
 }
 
 .report-topic-heading {
     width: 100%;
     display: flex;
-    /* justify-content: space-between; */
     justify-content: center;
     align-items: center;
     flex-direction: column;
