@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
     //IMAGE FILE SET IN FOLDER
     $profilepic = $_FILES["uploadfile"]["name"];
     $tempname   = $_FILES["uploadfile"]["tmp_name"];
-    $folder     = "./profile/" . $form_data['profilepic'];
+    $folder     = "./profile/" . $profilepic;
     move_uploaded_file($tempname, $folder);
 
     if (isset($_POST['hobby'])) {
@@ -24,16 +24,16 @@ if (isset($_POST['submit'])) {
     //UPDATE DATA 
     if ((isset($_POST['eid']))) {
         $eid = $_POST['eid'];
-        if ($form_data['profilepic'] == '') {
+        if (!$profilepic) {
             $eid = $_GET['eid'];
             $query = "SELECT profilepic FROM employee WHERE eid = $eid ";
             $select_image = mysqli_query($connection, $query);
             while ($row = mysqli_fetch_array($select_image)) {
-                $form_data['profilepic'] = $row['profilepic'];
+                $profilepic = $row['profilepic'];
             }
-            $update_data = "UPDATE employee SET ename='{$_POST['ename']}',email='{$_POST['email']}',salary='{$_POST['salary']}',department='{$_POST['department']}',lang='{$_POST['lang']}',profilepic='{$form_data['profilepic']}',description='{$_POST['description']}',joiningdate='{$_POST['joiningdate']}',hobby='{$_POST['hobby']}' WHERE eid = {$eid}";
+            $update_data = "UPDATE employee SET ename='{$_POST['ename']}',email='{$_POST['email']}',salary='{$_POST['salary']}',department='{$_POST['department']}',lang='{$_POST['lang']}',profilepic='{$profilepic}',description='{$_POST['description']}',joiningdate='{$_POST['joiningdate']}',hobby='{$_POST['hobby']}' WHERE eid = {$eid}";
         } else {
-            $update_data = "UPDATE employee SET ename='{$_POST['ename']}',email='{$_POST['email']}',salary='{$_POST['salary']}',department='{$_POST['department']}',lang='{$_POST['lang']}',profilepic='{$form_data['profilepic']}',description='{$_POST['description']}',joiningdate='{$_POST['joiningdate']}',hobby='{$_POST['hobby']}' WHERE eid = {$eid}";
+            $update_data = "UPDATE employee SET ename='{$_POST['ename']}',email='{$_POST['email']}',salary='{$_POST['salary']}',department='{$_POST['department']}',lang='{$_POST['lang']}',profilepic='{$profilepic}',description='{$_POST['description']}',joiningdate='{$_POST['joiningdate']}',hobby='{$_POST['hobby']}' WHERE eid = {$eid}";
         }
         $query = query($update_data);
         if ($query) {

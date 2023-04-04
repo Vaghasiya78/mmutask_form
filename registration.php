@@ -81,7 +81,7 @@ include "./registration_post.php";
                     <?php if (isset($_GET['action'])) { ?>
                         <img width="50" src="./profile/<?= $form_data['profilepic']; ?>" alt="No Image">
                     <?php } ?>
-                    <input type="file" name="uploadfile" accept="image/png, image/gif, image/jpeg" />
+                    <input type="file" name="uploadfile" accept="image/png, image/gif, image/jpeg" id="profilepic"/>
                 </div>
             </div>
             <div class="row">
@@ -123,7 +123,7 @@ include "./registration_post.php";
             <div class="row">
                 <div class="col-10">
                     <input type="hidden" name="eid" value="<?= isset($_GET['eid']) ? $_GET['eid'] : ''; ?>">
-                    <input type='submit' value='Submit' name='submit'>
+                    <input type='submit' value='Submit' name='submit' id='submit'>
                 </div>
             </div>
         </form>

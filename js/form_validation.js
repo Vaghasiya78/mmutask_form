@@ -1,5 +1,6 @@
 function form_validation() {
 
+    // define all variables which store form data
     const error = [];
     returnval = true;
     let eid = document.forms.empForm.eid.value;
@@ -23,45 +24,53 @@ function form_validation() {
     }
 
     // check Validation for form
-    if (ename == "") {
+    if (ename == "" || !isNaN(ename)) {
         error.push("This employee name is empty please insert some data.");
+        document.getElementById("ename").focus();
         returnval = false;
     } else if (!/^[A-Za-z\s]+$/.test(ename)) {
         error.push("Only alphabets and whitespace are allowed in employee field.");
+        document.getElementById("ename").focus();
         returnval = false;
     }
 
-    if (email == "") {
+    if (email == "" || !isNaN(email)) {
         error.push("This employee email is empty please insert some data.");
+        document.getElementById("email").focus();
         returnval = false;
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g.test(email)) {
+    } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
         error.push("Email is not valid please enter valid email.");
+        document.getElementById("email").focus();
         returnval = false;
     }
 
     if (salary == "") {
         error.push("This employee salary is empty please insert some data.");
+        document.getElementById("salary").focus();
         returnval = false;
     } else if (!/^[0-9]+$/.test(salary)) {
         error.push("Only numeric value is allowed in salary.");
+        document.getElementById("salary").focus();
         returnval = false;
     } else if ((salary.length) >= 7) {
         error.push("Enter Salary value is less then 6 character.");
+        document.getElementById("salary").focus();
         returnval = false;
     }
 
-    if (department == "" || department == null) {
+    if (department == "" || !isNaN(department)) {
         error.push("This employee department is empty please select any one.");
+        document.getElementById("department").focus();
         returnval = false;
     }
 
-    if (lang == "" || lang == null) {
+    if (lang == "" || !isNaN(lang)) {
         error.push("Please select any language.");
         returnval = false;
     }
 
 
-    if ((profilepic == "" || profilepic == null) && eid == "") {
+    if ((profilepic == "" || !isNaN(profilepic)) && eid == "") {
         error.push("Please select your profile picture.");
         returnval = false;
     } else if (profilepic) {
@@ -71,13 +80,15 @@ function form_validation() {
         }
     }
 
-    if (description == "" || description == null) {
+    if (description == "" || !isNaN(description)) {
         error.push("Please enter some description.");
+        document.getElementById("description").focus();
         returnval = false;
     }
 
-    if (joiningdate == "" || joiningdate == null) {
+    if (joiningdate == "" || !isNaN(joiningdate)) {
         error.push("Please select joining date.");
+        document.getElementById("joiningdate").focus();
         returnval = false;
     }
 
