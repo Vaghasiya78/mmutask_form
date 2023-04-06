@@ -107,3 +107,12 @@ function form_validation() {
     }
     return returnval;
 }
+function selected_val() {
+    let selected = "";
+    let checked = document.querySelectorAll('#department :checked');
+    for (let i = 0; i < checked.length; i++) {
+        selected = selected + checked[i].value + "\n";
+    }
+    document.getElementById("hidden_dept").style.display = "block";
+    document.getElementById('dept').innerText = selected;
+}

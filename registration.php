@@ -16,7 +16,7 @@ include "./registration_post.php";
 
 <body>
     <ul><span id="formerror" class="formerror">
-    </span></ul>
+        </span></ul>
     <div class="container">
         <div class="left-link">
             <a href="./index.php">Go To Dashboard</a>
@@ -53,13 +53,22 @@ include "./registration_post.php";
                 <div class="col-10">
                     <label class="contentlabel" for="department">Department<label style="color:red"> *</label>:</label>
                 </div>
-                <div class="col-90">
-                    <select name="department" id="department">
-                        <option value=""> Select Department </option>
-                        <option value="HR" <?= (isset($form_data['department']) && $form_data['department'] == 'HR') ? "selected" : ''; ?>>HR</option>
-                        <option value="Devloper" <?= (isset($form_data['department']) && $form_data['department'] == 'Devloper') ? "selected" : ''; ?>>Devloper</option>
-                        <option value="Designer" <?= (isset($form_data['department']) && $form_data['department'] == 'Designer') ? "selected" : ''; ?>>Designer</option>
+                <div class="col-10">
+                    <?php $array_dept = array("CEO", "HR", "Devloper", "Designer", "Testing", "Accountent", "Worker", "Other"); ?>
+                    <select name="department" id="department" multiple="multiple" onchange="document.getElementById('hidden_dept').style.display = 'none';">
+                        <option value="" disabled> Select Department </option>
+                        <?php foreach ($array_dept as $department) { ?>
+                            <option value="<?= $department ?>" <?= (isset($form_data['department']) && $form_data['department'] == $department) ? "selected" : ''; ?>><?= $department ?></option>
+                        <?php } ?>
                     </select>
+                </div>
+
+                <!-- Display Selected Value in side box -->
+                <div class="col-2">
+                    <button id="btn_dept" onclick="selected_val();">>></button>
+                </div>
+                <div hidden id="hidden_dept" class="col-15 dept">
+                    <div id="dept"></div>
                 </div>
             </div>
             <div class="row">
@@ -81,7 +90,7 @@ include "./registration_post.php";
                     <?php if (isset($_GET['action'])) { ?>
                         <img width="50" src="./profile/<?= $form_data['profilepic']; ?>" alt="No Image">
                     <?php } ?>
-                    <input type="file" name="uploadfile" accept="image/png, image/gif, image/jpeg" id="profilepic"/>
+                    <input type="file" name="uploadfile" accept="image/png, image/gif, image/jpeg" id="profilepic" />
                 </div>
             </div>
             <div class="row">
